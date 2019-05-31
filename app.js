@@ -1,15 +1,13 @@
 import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
-
 // import moment from 'moment';
 // import uuid from 'uuid';
 // "build": "babel server.js --out-dir build",
 
-
-
 // Database
 const db = require("./config/database2");
+
 
 // Test DB
 db.authenticate()
@@ -17,7 +15,6 @@ db.authenticate()
   .catch(err => console.log("Error: " + err));
 
 const app = express();
-
 
 // const express = require("express");
 // const app = express();
@@ -30,6 +27,7 @@ const app = express();
 //import clientRoutes from "./api/routes/clients";
 import clientRoutes from "./api/routes/clients2";
 import smsRoutes from './api/routes/sms';
+import emailRoutes from './api/routes/email';
 
 app.use(morgan("dev"));
 
@@ -53,6 +51,8 @@ app.use((res, req, next) => {
 // Routes which should handle requests
 app.use("/clients", clientRoutes);
 app.use('/sms', smsRoutes);
+app.use('/email', emailRoutes);
+
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
